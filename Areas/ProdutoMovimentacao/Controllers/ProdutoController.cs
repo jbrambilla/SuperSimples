@@ -71,14 +71,23 @@ namespace WebSuperSimplesMVC.Areas.ProdutoMovimentacao.Controllers
         [HttpPost]
         public ActionResult InsertAction(ProjetoSuperSimples.Modulos.ProdutoMovimentacao.Model.Entidades.Produto produto)
         {
-
-            if (library.salvarProduto(produto))
+            ModelState.Remove("id");
+            ModelState.Remove("estoque");
+            if (String.IsNullOrEmpty(produto.nome) || produto.nome.Trim().Length == 0)
             {
-                TempData["Mensagem"] = "Produto " + produto.nome + " salvo com sucesso!";
-                TempData["Controller"] = "Movimentacao";
-                TempData["Acao"] = "Index";
-                TempData["Produto"] = (produto.id == 0) ? library.getLastProductId() : produto.id;
-                return RedirectToAction("Index");
+                ModelState.AddModelError("nome", "O campo nome é obrigatório.");
+            }
+            if (ModelState.IsValid)
+            {
+                if (library.salvarProduto(produto))
+                {
+                    TempData["Mensagem"] = "Produto " + produto.nome + " salvo com sucesso!";
+                    TempData["Controller"] = "Movimentacao";
+                    TempData["Acao"] = "Index";
+                    TempData["Produto"] = (produto.id == 0) ? library.getLastProductId() : produto.id;
+                    return RedirectToAction("Index");
+                }
+                throw new Exception("Os dados do produto estavam Ok. Porém, ocorreu algum erro.");
             }
             return View(produto);
         }
