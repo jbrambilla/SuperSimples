@@ -40,7 +40,7 @@ namespace WebSuperSimplesMVC.Areas.ProdutoMovimentacao.Controllers
 
             var pdf = new ViewAsPdf
             {
-                ViewName = "PdfActio",
+                ViewName = "PdfAction",
                 Model = TempData["mov"],
                 FileName =  "Relatorio_" + produto.id +"_" + produto.nome + ".pdf",
                 PageSize = Size.A4,
