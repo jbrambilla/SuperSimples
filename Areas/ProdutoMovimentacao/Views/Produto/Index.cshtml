@@ -1,0 +1,45 @@
+﻿@model PagedList.IPagedList<ProjetoSuperSimples.Modulos.ProdutoMovimentacao.Model.Entidades.Produto>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Cadastro de Produto";
+}
+
+<h2>Cadastrar Produto</h2>
+
+@Html.Partial("_Mensagens", Model)
+
+@Html.Partial("_Search", Model)
+
+@Html.ActionLink("Novo", "InsertAction", "Produto", new { @class="btn btn-primary btn-sm" })
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>@Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter })</th>
+            <th>@Html.ActionLink("Estoque", "Index", new { sortOrder = ViewBag.EstoqueSortParam, currentFilter = ViewBag.CurrentFilter })</th>
+            <th>Edit</th>
+            <th>Movimentar</th>
+            <th>Relatório</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.nome</td>
+                <td>@item.estoque</td>
+                <td>@Html.ActionLink("edit", "EditAction", new { id = @item.id })</td>
+                <td>@Html.ActionLink("movimentar", "Index", "Movimentacao", new { fkProduto = @item.id }, null)</td>
+                <td>@Html.ActionLink("ver relatório", "Index", "Relatorio", new { fkProduto = @item.id }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table> 
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

@@ -1,0 +1,45 @@
+﻿@model ProjetoSuperSimples.Modulos.ProdutoMovimentacao.Model.Entidades.Produto
+
+<div id="divForm">
+    @using (@Html.BeginForm("InsertAction", "Produto", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <fieldset>
+            <legend>Inserir Produto</legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.id, new { @class = "col-lg-2 control-label" })
+                
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => m.id, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Nome", new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => m.nome, new { @class = "form-control", required = "true" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.estoque, new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => m.estoque, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    @if (Model != null && Model.id != null)
+                    {
+                        <input type="button" id="btnDelete" value="Excluir" class="btn btn-primary" />
+                        <!--@Html.ActionLink("Excluir", "DeleteAction", "Produto", new { id = Model.id }, new { @class = "btn btn-primary" })-->
+                        <div id="dialog-confirm"></div>
+                    }
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
+<div>
+    @Html.ActionLink("Voltar para Produtos", "Index", "Produto")
+</div>

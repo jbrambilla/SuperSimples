@@ -1,0 +1,18 @@
+﻿@if (TempData["ExclusaoS"] != null)
+{
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>@TempData["ExclusaoS"]</strong> Você pode inserir um novo
+        @Html.ActionLink("Produto", "InsertAction", new { @class = "alert-link" }) se quiser.
+    </div>
+}
+
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>@TempData["Mensagem"]</strong> vá para o(a)
+        @Html.ActionLink(@TempData["Controller"].ToString(), TempData["Acao"].ToString(), @TempData["Controller"].ToString(), new { fkProduto = TempData["Produto"].ToString() }, new { @class = "alert-link" })
+        se quiser.
+    </div>
+}

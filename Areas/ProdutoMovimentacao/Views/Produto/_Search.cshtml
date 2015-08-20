@@ -1,0 +1,38 @@
+﻿<div id="divForm">
+    @using (@Html.BeginForm("Index", "Produto", FormMethod.Get, new { @class = "form-horizontal" }))
+    {
+        <fieldset>
+            <legend>Procurar Produtos</legend>
+
+            <div class="form-group">
+                @Html.Label("Procurar Produtos", new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBox("search", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Método", new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    <div class="radio">
+                        <label>
+                            @Html.RadioButton("linq", "0", true)
+                            Linq
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            @Html.RadioButton("linq", "1", false)
+                            Lambda
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>

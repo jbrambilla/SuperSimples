@@ -1,0 +1,79 @@
+﻿@model ProjetoSuperSimples.Modulos.ProdutoMovimentacao.Model.Entidades.Movimentacao
+
+@{
+    ViewBag.Title = "Movimentar Produto";
+    var produto = ((ProjetoSuperSimples.Modulos.ProdutoMovimentacao.Model.Entidades.Produto)ViewBag.Produto);
+}
+
+<h2>Movimentar Produto</h2>
+
+<div id="divForm">
+    @using (@Html.BeginForm("InsertAction", "Movimentacao", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <fieldset>
+            <legend>Realizar Movimentação</legend>
+            <div class="form-group">
+                @Html.Label("Id do Produto", new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => m.fkProduto, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Nome do Produto", new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-10">
+                    @Html.TextBox("nome", produto.nome, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Estoque Atual", new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-10">
+                    @Html.TextBox("estoque_atual", produto.estoque.ToString(), new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Tipo Movimentação", new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-10">
+                    @Html.DropDownListFor(m => m.tipo, new SelectList(
+                        new List<Object>{ 
+                            new { value = '+' , text = "Entrada"  },
+                            new { value = '-' , text = "Saída" }
+                        },
+                        "value",
+                        "text"
+                    ))
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.quantidade, new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => m.quantidade, new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Estoque Final", new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => m.estoque, new { @class = "form-control", @readonly = "readonly", @Value = produto.estoque })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Voltar para Produtos", "Index", "Produto")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/produto")
+}
