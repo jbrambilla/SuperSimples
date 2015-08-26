@@ -22,7 +22,7 @@ namespace WebSuperSimplesMVC.Areas.ProdutoMovimentacao.Controllers
         [HttpPost]
         public ActionResult InsertAction(ProjetoSuperSimples.Modulos.ProdutoMovimentacao.Model.Entidades.Movimentacao movimentacao)
         {
-            if (ModelState.IsValid && library.salvarMovimentacao(movimentacao))
+            if (movimentacao.quantidade > 0 && library.salvarMovimentacao(movimentacao))
             {
                 TempData["Mensagem"] = "Movimentacao do produto de Id " + movimentacao.fkProduto + " cadastrada com sucesso!";
                 TempData["Acao"] = "Index";
@@ -30,7 +30,8 @@ namespace WebSuperSimplesMVC.Areas.ProdutoMovimentacao.Controllers
                 TempData["Produto"] = movimentacao.fkProduto;
                 return RedirectToAction("Index", "Produto");
             }
-            return View(movimentacao);
+            ViewBag.Produto = library.carregarProduto(movimentacao.fkProduto.ToString());
+            return View("Index", movimentacao);
         }
     }
 }

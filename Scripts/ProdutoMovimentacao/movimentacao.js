@@ -13,7 +13,7 @@
 function updateEstoqueFinal()
 {
     var estoqueFinal = 0.00;
-    var quantidade = ($("#quantidade").val()) ? parseFloat($("#quantidade").val()) : 0;
+    var quantidade = ($("#quantidade").val().toString().trim() != "") ? parseFloat($("#quantidade").val()) : 0;
     estoqueFinal = ($("#tipo").val() == '+') ? parseFloat($("#estoque_atual").val()) + quantidade : parseFloat($("#estoque_atual").val()) - quantidade;
     $("#estoque").val(estoqueFinal);
 }
